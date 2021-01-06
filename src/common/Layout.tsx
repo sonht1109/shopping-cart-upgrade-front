@@ -1,21 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Menu from '../components/menu'
 import Footer from '../components/footer/index';
+import Sidebar from 'react-sidebar';
+import SidebarContent from '../components/sidebarContent/index';
 
 export default function Layout() {
+
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const handleOpenSidebar = () => {
+        setSidebarOpen(!sidebarOpen)
+    }
+
+    const sidebar = <SidebarContent />
+
     return (
         <div>
-            <Menu />
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni laudantium corporis qui sunt dolore, molestiae magnam, neque error repudiandae, ad odit libero tenetur debitis earum quaerat. Provident atque sequi nesciunt?
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni laudantium corporis qui sunt dolore, molestiae magnam, neque error repudiandae, ad odit libero tenetur debitis earum quaerat. Provident atque sequi nesciunt?
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni laudantium corporis qui sunt dolore, molestiae magnam, neque error repudiandae, ad odit libero tenetur debitis earum quaerat. Provident atque sequi nesciunt?
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni laudantium corporis qui sunt dolore, molestiae magnam, neque error repudiandae, ad odit libero tenetur debitis earum quaerat. Provident atque sequi nesciunt?
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni laudantium corporis qui sunt dolore, molestiae magnam, neque error repudiandae, ad odit libero tenetur debitis earum quaerat. Provident atque sequi nesciunt?
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni laudantium corporis qui sunt dolore, molestiae magnam, neque error repudiandae, ad odit libero tenetur debitis earum quaerat. Provident atque sequi nesciunt?
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni laudantium corporis qui sunt dolore, molestiae magnam, neque error repudiandae, ad odit libero tenetur debitis earum quaerat. Provident atque sequi nesciunt?
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni laudantium corporis qui sunt dolore, molestiae magnam, neque error repudiandae, ad odit libero tenetur debitis earum quaerat. Provident atque sequi nesciunt?
-            
-            <Footer />
+
+            <Sidebar
+                sidebar={sidebar}
+                open={sidebarOpen}
+                onSetOpen={() => setSidebarOpen(false)}
+                styles={{ sidebar: { background: "white", padding: "10px", paddingTop: "30px" }}}
+            >
+                <Menu onOpenSidebar={handleOpenSidebar} />
+                <div style={{marginTop: 120}}></div>
+                <Footer />
+            </Sidebar>
         </div>
     )
 }

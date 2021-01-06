@@ -1,0 +1,20 @@
+.sidebar-content .sidebar-item{
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sidebar-content .sidebar-item:hover{
+    background: rgb(41, 107, 194);
+    color: wheat;
+}
+
+.sidebar-content .collapse-menu{
+    background-color: rgb(233, 232, 232);
+}
+
+@media(max-width: 680px){
+    .sidebar-content .sidebar-item{
+        font-size: 14px;
+    }
+}

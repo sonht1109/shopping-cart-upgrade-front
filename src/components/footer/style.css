@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 0;
+    padding: 40px 0;
 }
 .footer .social-icon{
     color: rgba(255, 255, 255, 0.6);
@@ -12,11 +12,11 @@
     margin: 0 30px;
 }
 .footer .social-icon:hover{
-    color: white;
+    color: rgba(255, 255, 255, 1);
 }
 @media(max-width : 680px){
     .footer{
-        padding: 40px 0;
+        padding: 30px 0;
     }
     .footer .social-icon{
         font-size: 16px;

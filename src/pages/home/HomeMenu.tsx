@@ -3,7 +3,6 @@ import { IoIosArrowForward } from "react-icons/io";
 
 const menus = [
     {name: "Store"},
-    {name: "Collections"},
     {name: "About us"},
     {name: "Log In"},
 ]
