@@ -1,0 +1,25 @@
+.footer{
+    background-color: rgb(41, 107, 194);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+}
+.footer .social-icon{
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 30px;
+}
+.footer .social-icon:hover{
+    color: white;
+}
+@media(max-width : 680px){
+    .footer{
+        padding: 40px 0;
+    }
+    .footer .social-icon{
+        font-size: 16px;
+        margin: 0 20px;
+    }
+}
