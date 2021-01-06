@@ -42,8 +42,8 @@
 }
 .carousel .carousel-indicators li{
     margin-left: auto;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     margin-left: 10px;
     margin-top: 10px;
@@ -69,6 +69,7 @@
     align-items: center;
     position: relative;
     transition: 0.2s;
+    margin: 5px 0;
 }
 .home-menu .menu-item .icon{
     margin-right: 5px;
@@ -102,7 +103,7 @@
         font-size: 16px;
     }
     .carousel .carousel-indicators li{
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
     }
 }

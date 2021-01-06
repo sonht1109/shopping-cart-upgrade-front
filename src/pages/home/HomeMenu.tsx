@@ -1,18 +1,19 @@
 import React from 'react'
 import { IoIosArrowForward } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 const menus = [
-    {name: "Store"},
-    {name: "About us"},
-    {name: "Log In"},
+    {name: "Store", to: "/collections"},
+    {name: "About us", to: "/about"},
+    {name: "Log In", to: "/login"},
 ]
 
 const mapMenus = menus.map((item, index) => {
     return (
-        <div className="menu-item" key={index}>
+        <Link to={item.to} className="menu-item" key={index} style={{textDecoration: 'none'}}>
             <IoIosArrowForward className="icon" />
             {item.name}
-        </div>
+        </Link>
     )
 })
 

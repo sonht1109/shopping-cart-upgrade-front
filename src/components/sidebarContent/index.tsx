@@ -1,7 +1,8 @@
 import React from 'react'
 import { UncontrolledCollapse } from 'reactstrap'
-import {IoChevronDownOutline, IoCloseSharp} from 'react-icons/io5'
+import {IoChevronDownOutline} from 'react-icons/io5'
 import './style.css'
+import { Link } from 'react-router-dom';
 
 const renderBorder = ()=> {
     return(
@@ -18,7 +19,7 @@ export default function SidebarContent() {
     return (
         <div className="sidebar-content">
             {/* <IoCloseSharp style={{float: "right", cursor: "pointer"}} /> */}
-            <div className="sidebar-item">Home</div>
+            <Link to="/" className="sidebar-item" style={{textDecoration: 'none'}}>Home</Link>
             {renderBorder()}
             <div>
                 <div id="toggle" className="sidebar-item">
@@ -35,9 +36,9 @@ export default function SidebarContent() {
                 </UncontrolledCollapse>
             </div>
 
-            <div className="sidebar-item">About us</div>
+            <Link to="/about" className="sidebar-item" style={{textDecoration: 'none'}}>About us</Link>
             {renderBorder()}
-            <div className="sidebar-item">Log in</div>
+            <Link to="/login" className="sidebar-item" style={{textDecoration: 'none'}}>Log in</Link>
         </div>
     )
 }

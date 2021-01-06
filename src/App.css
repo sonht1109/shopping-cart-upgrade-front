@@ -1,13 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
-* {padding: 0; margin: 0; font-family: 'Prompt', sans-serif; letter-spacing: 1px; user-select: none;}
+* {padding: 0; margin: 0; font-family: 'Prompt', sans-serif; letter-spacing: 1px; user-select: none; box-sizing: border-box; overflow: hidden;}
 
 .wrapper {
     padding: 40px;
 }
+a{padding: 0; color: black; text-decoration: none;}
+
+input, button{border: none; outline: none; padding: 5px 0;;}
+
+.form-control{
+    height: auto!important;
+    margin: 10px 0;
+}
 
 @media(max-width: 680px){
+    *{
+        font-size: 14px;
+    }
     .wrapper {
         padding: 20px;
+    }
+    .form-control{
+        margin: 10px 0;
+        background-color: black;
     }
 }

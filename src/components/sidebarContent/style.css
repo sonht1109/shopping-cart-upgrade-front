@@ -6,11 +6,16 @@
 
 .sidebar-content .sidebar-item:hover{
     background: rgb(41, 107, 194);
-    color: wheat;
+    color: white;
 }
 
 .sidebar-content .collapse-menu{
     background-color: rgb(233, 232, 232);
+}
+
+a{
+    display: block;
+    text-decoration: none;
 }
 
 @media(max-width: 680px){
