@@ -1,15 +1,19 @@
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
 import * as constants from '../common/constants'
+import * as actions from '../common/actions'
+import store from '../redux/index'
 
 // INTERCEPTORS
 const interceptorInstance = axios.create()
 interceptorInstance.interceptors.request.use(
     function(config){
         //do sth before sending request
+        store.dispatch(actions.changeLoading(true))
         return config;
     },
     function(err){
         //do sth with request err
+        store.dispatch(actions.changeLoading(false));
         return Promise.reject(err)
     }
 )
@@ -17,23 +21,25 @@ interceptorInstance.interceptors.request.use(
 interceptorInstance.interceptors.response.use(
     function(response){
         //do sth with response data
+        store.dispatch(actions.changeLoading(false))
         return response
     },
     function(err){
         //do sth with response err
+        store.dispatch(actions.changeLoading(false));
         return Promise.reject(err)
     }
 )
 
 // ====> INTERCEPTORS with token
-export const apiTokenInterceptor = async(method:any, url:String, data:any) => {
-    let jwt = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
+export const apiTokenInterceptor = async(method:any, url:String, data:any, token: String) => {
+    // let jwt = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
     return interceptorInstance({
         method: method,
         url: `${constants.API_ENDPOINT}/${url}`,
         data,
         headers: {
-            Authorization: jwt,
+            Authorization: token,
         }
     })
 }
@@ -60,14 +66,14 @@ export const api = (method:any, url:String, data:any) => {
 };
 
 // ====> with token
-export const apiToken = (method:any, url:String, data:any) => {
+export const apiToken = (method:any, url:String, data:any, token: String) => {
   let jwt = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
   return instance({
     method: method,
     url: `${constants.API_ENDPOINT}/${url}`,
     data: data,
     headers: {
-      Authorization: jwt,
+      Authorization: token,
     },
   });
 };

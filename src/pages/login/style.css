@@ -7,12 +7,18 @@
     align-items: center;
 }
 
-.login button{
+.login button,
+.user-info button{
     width: 100%;
     padding: 10px 0;
     color: white;
-    background-color: rgb(41, 107, 194);
+    background-color: rgba(41, 107, 194, 1);
     margin: 10px 0;
+}
+
+input{
+    border: 1px solid rgb(233, 232, 232);
+    padding: 10px;
 }
 
 .switch-login{
@@ -21,9 +27,16 @@
     cursor: pointer;
 }
 
+.user-info{
+    min-height: calc(100vh - 120px - 100px);
+}
+
 @media(max-width: 680px){
     .login{
         height: calc(100vh - 120px - 76px);;
+    }
+    .user-info{
+        min-height: calc(100vh - 120px - 76px);
     }
     .switch-login{
         font-size: 12px;

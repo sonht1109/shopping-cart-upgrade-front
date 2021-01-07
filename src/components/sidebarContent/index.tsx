@@ -1,71 +1,98 @@
 import React from 'react'
 import { UncontrolledCollapse } from 'reactstrap'
-import {IoChevronDownOutline} from 'react-icons/io5'
+import { IoChevronDownOutline } from 'react-icons/io5'
 import './style.css'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const renderBorder = ()=> {
-    return(
+interface Category {
+    _id: string,
+    name: string
+}
+
+const renderBorder = () => {
+    return (
         <div
-        style={{
-            height: "0.5px",
-            backgroundColor: "rgb(233, 232, 232)",
-        }}
-        ></div>
+            style={{
+                height: "0.5px",
+                backgroundColor: "rgb(233, 232, 232)",
+            }}>
+        </div>
     )
 }
 
-export default function SidebarContent(props:any) {
+export default function SidebarContent(props: any) {
 
-    const onCloseSidebar = ()=> {        
+    const onCloseSidebar = () => {
         props.onCloseSidebar()
     }
 
+    const cateState = useSelector((state: any) => state.categoryReducer)
+    const userState = useSelector((state: any) => state.userReducer)
 
-    return (
-        <div className="sidebar-content">
-            {/* <IoCloseSharp style={{float: "right", cursor: "pointer"}} /> */}
+    const menus = [
+        { name: "Home", to: "/" },
+        { name: "Collections", to: "/products" },
+        { name: "About us", to: "/about" },
+        { name: userState.email ? userState.email : "Log in", to: userState.email ? "/me" : "/login" }
+    ]
+
+    const renderDropdown = cateState.map((item: Category) => {
+        return (
             <Link
-            to="/"
+            to={`/products/${item._id}`}
             className="sidebar-item"
-            style={{textDecoration: 'none'}}
+            key={item._id}
+            style={{ textDecoration: 'none' }}
             onClick={onCloseSidebar}
             >
-                Home
+                {item.name}
             </Link>
-            {renderBorder()}
-            <div>
+        )
+    })
+
+    const mapMenus = menus.map((item: any, index: number) => {
+        if (item.name !== "Collections") {
+            return (
+                <div key={index}>
+                    <Link
+                        to={item.to}
+                        className="sidebar-item"
+                        style={{ textDecoration: 'none' }}
+                        onClick={onCloseSidebar}
+                    >
+                        {item.name}
+                    </Link>
+                    {index !== menus.length - 1 &&
+                        renderBorder()}
+                </div>
+            )
+        }
+        return (
+            <div key={index}>
                 <div id="toggle" className="sidebar-item">
-                    Collections <IoChevronDownOutline />
+                    {item.name}
+                    <IoChevronDownOutline style={{ marginLeft: "auto" }} />
                 </div>
                 {renderBorder()}
                 <UncontrolledCollapse toggler="#toggle" className="collapse-menu">
-                    <div className="sidebar-item">Top</div>
-                    {renderBorder()}
-                    <div className="sidebar-item">Bottom</div>
-                    {renderBorder()}
-                    <div className="sidebar-item">Accessories</div>
-                    {renderBorder()}
+                    <Link
+                    to="/products"
+                    className="sidebar-item"
+                    style={{ textDecoration: 'none' }}
+                    onClick={onCloseSidebar}
+                    >
+                        All
+                    </Link>
+                    {renderDropdown}
                 </UncontrolledCollapse>
             </div>
+        )
+    })
 
-            <Link
-            to="/about"
-            className="sidebar-item"
-            style={{textDecoration: 'none'}}
-            onClick={onCloseSidebar}
-            >
-                About us
-            </Link>
-            {renderBorder()}
-            <Link
-            to="/login"
-            className="sidebar-item"
-            style={{textDecoration: 'none'}}
-            onClick={onCloseSidebar}
-            >
-                Log in
-                </Link>
+    return (
+        <div className="sidebar-content">
+            {mapMenus}
         </div>
     )
 }

@@ -17,8 +17,11 @@ export default function Menu(props:any) {
             size={28}
             onClick={openSidebar}
             />
-            <img src={logo} width={80} height={80} style={{marginRight: "auto"}} />
-            <div className="cart">CART</div>
+            <img src={logo} width={80} height={80}
+            style={{marginRight: "auto"}}
+            alt="logo"
+            />
+            <div className="cart">Cart</div>
         </div>
     )
 }

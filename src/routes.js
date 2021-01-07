@@ -1,5 +1,4 @@
 import Collections from './pages/collections';
-import Home from './pages/home/index';
 import Login from './pages/login';
 import About from './pages/about/index';
 import ManageProducts from './adminPages/manageProducts';
@@ -14,7 +13,13 @@ const routes = [
         main: ()=> <Login />
     },
     {
-        path: "/collections",
+        path: "/products",
+        private: false,
+        exact: true,
+        main: ()=> <Collections />
+    },
+    {
+        path: "/products/:category",
         private: false,
         exact: true,
         main: ()=> <Collections />
@@ -38,11 +43,11 @@ const routes = [
         main: ()=> <ManageUsers />
     },
     {
-        path: "/user/me",
+        path: "/me",
         private: false,
         exact: true,
         main: ()=> <UserInfo />
-    }
+    },
 ]
 
 export default routes

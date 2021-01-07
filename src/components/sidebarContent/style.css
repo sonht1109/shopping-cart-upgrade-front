@@ -19,6 +19,11 @@ a{
     text-decoration: none;
 }
 
+#toggle{
+    display: flex;
+    align-items: center;
+}
+
 @media(max-width: 680px){
     .sidebar-content .sidebar-item{
         font-size: 14px;

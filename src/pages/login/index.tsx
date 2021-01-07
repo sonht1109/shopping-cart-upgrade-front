@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import './style.css'
-import { api } from '../../common/axios';
+import { apiInterceptor } from '../../common/axios';
 import * as constants from '../../common/constants'
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import * as actions from '../../common/actions'
 
 export default function Login() {
     const [login, setLogin] = useState<boolean>(true)
@@ -14,9 +15,9 @@ export default function Login() {
     })
 
     const history = useHistory()
-    // const isLogin = useSelector((state: any) => state.)
+    const dispatch = useDispatch()
 
-    const onChange=(e:any)=>{
+    const onChange = (e: any) => {
         var target = e.target
         var name = target.name
         var value = target.value
@@ -26,49 +27,68 @@ export default function Login() {
         })
     }
 
-    const onLogin = ()=> {
-        api("POST", constants.LOGIN_URL, {...info})
-        .then(res => {
-            if(res){
-                const {user, token} = res.data
-                localStorage.setItem("jwt", token);
-                
-                history.replace(constants.GET_INFO_URl)
+    const onSubmit = (e: any) => {
+        e.preventDefault();
+        if (login) {
+            apiInterceptor("POST", constants.LOGIN_URL, { ...info })
+                .then(res => {
+                    if (res.status === 200) {
+                        const { user, token } = res.data
+                        localStorage.setItem("jwt", token)
+                        dispatch(actions.getUser(user))
+                        history.replace("/me")
+                    }
+                })
+                .catch(err => {
+                    alert("Wrong password")
+                })
+        }
+        else {
+            if(!login && info.password !== info.repassword){
+                alert("Password not match")
             }
-        })
-        .catch(err => console.log(err))
+            else{
+                apiInterceptor("POST", constants.SIGNUP_URL, { ...info })
+                .then(() => {
+                    setLogin(true)
+                    alert("Signed up !")
+                })
+                .catch(err => console.log(err))
+            }
+        }
     }
 
     return (
         <div className="login wrapper">
             <p style={{ fontSize: 20 }}>{login ? "Log In" : "Sign Up"}</p>
-            <div className="login-form">
-                <div className="form-control">
+            <form className="login-form">
+                <div className="form-group">
                     <input
-                    type="text"
-                    placeholder="Email"
-                    name="email"
-                    onChange={onChange}
-                    value={info.email}
+                        type="text"
+                        placeholder="Email"
+                        name="email"
+                        onChange={onChange}
+                        value={info.email}
                     />
                 </div>
-                <div className="form-control">
+                <div className="form-group">
                     <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    onChange={onChange}
-                    value={info.password}/>
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        onChange={onChange}
+                        value={info.password} />
                 </div>
                 {
                     !login &&
-                    <div className="form-control">
+                    <div className="form-group">
                         <input
-                        type="password"
-                        placeholder="Confirm password"
-                        name="repassword"
-                        onChange={onChange}
-                        value={info.repassword}
+                            type="password"
+                            placeholder="Confirm password"
+                            name="repassword"
+                            onChange={onChange}
+                            value={info.repassword}
+                            style={{borderColor: info.password === info.repassword ? "rgb(233, 232, 232)" : "#e68888"}}
                         />
                     </div>
                 }
@@ -78,8 +98,13 @@ export default function Login() {
                 >
                     {login ? "or Sign up" : "or Log in"}
                 </span>
-                <button onClick={onLogin}>{login ? "Log in" : "Sign up"}</button>
-            </div>
+                <button
+                type="submit"
+                onClick={onSubmit}
+                >
+                    {login ? "Log in" : "Sign up"}
+                </button>
+            </form>
         </div>
     )
 }

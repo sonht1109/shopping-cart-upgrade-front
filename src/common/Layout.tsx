@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import Menu from '../components/menu'
 import Footer from '../components/footer/index';
 import Sidebar from 'react-sidebar';

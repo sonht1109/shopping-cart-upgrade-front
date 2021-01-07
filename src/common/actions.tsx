@@ -10,7 +10,12 @@ export const changeLoading = (payload: boolean) => ({
     payload
 })
 
-export const checkLogin = (payload: boolean) => ({
-    type: constants.IS_LOGIN,
+export const getProducts = (payload: any[]) => ({
+    type: constants.GET_PRODUCTS,
     payload
-  })
+})
+
+export const getCategories = (payload: any[]) => ({
+    type: constants.GET_CATES,
+    payload
+})
