@@ -14,8 +14,6 @@ export default function Layout() {
         setSidebarOpen(!sidebarOpen)
     }
 
-    const sidebar = <SidebarContent />
-
     const mapRoutes = routes.map((item, index) => {
         return (
             <Route key={index} exact={item.exact} path={item.path}>
@@ -24,9 +22,13 @@ export default function Layout() {
         )
     })
 
+    const onCloseSidebar = ()=> {
+        setSidebarOpen(!sidebarOpen)
+    }
+
     return (
         <Sidebar
-            sidebar={sidebar}
+            sidebar={<SidebarContent onCloseSidebar={onCloseSidebar} />}
             open={sidebarOpen}
             onSetOpen={() => setSidebarOpen(false)}
             styles={{ sidebar: { background: "white", padding: "10px", paddingTop: "30px" } }}

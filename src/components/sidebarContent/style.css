@@ -2,6 +2,7 @@
     padding: 10px 20px;
     cursor: pointer;
     transition: 0.2s;
+    color: black;
 }
 
 .sidebar-content .sidebar-item:hover{

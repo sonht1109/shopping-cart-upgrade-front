@@ -15,11 +15,24 @@ const renderBorder = ()=> {
     )
 }
 
-export default function SidebarContent() {
+export default function SidebarContent(props:any) {
+
+    const onCloseSidebar = ()=> {        
+        props.onCloseSidebar()
+    }
+
+
     return (
         <div className="sidebar-content">
             {/* <IoCloseSharp style={{float: "right", cursor: "pointer"}} /> */}
-            <Link to="/" className="sidebar-item" style={{textDecoration: 'none'}}>Home</Link>
+            <Link
+            to="/"
+            className="sidebar-item"
+            style={{textDecoration: 'none'}}
+            onClick={onCloseSidebar}
+            >
+                Home
+            </Link>
             {renderBorder()}
             <div>
                 <div id="toggle" className="sidebar-item">
@@ -36,9 +49,23 @@ export default function SidebarContent() {
                 </UncontrolledCollapse>
             </div>
 
-            <Link to="/about" className="sidebar-item" style={{textDecoration: 'none'}}>About us</Link>
+            <Link
+            to="/about"
+            className="sidebar-item"
+            style={{textDecoration: 'none'}}
+            onClick={onCloseSidebar}
+            >
+                About us
+            </Link>
             {renderBorder()}
-            <Link to="/login" className="sidebar-item" style={{textDecoration: 'none'}}>Log in</Link>
+            <Link
+            to="/login"
+            className="sidebar-item"
+            style={{textDecoration: 'none'}}
+            onClick={onCloseSidebar}
+            >
+                Log in
+                </Link>
         </div>
     )
 }

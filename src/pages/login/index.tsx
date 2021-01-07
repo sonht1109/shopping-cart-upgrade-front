@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './style.css'
+import { api } from '../../common/axios';
 
 export default function Login() {
     const [login, setLogin] = useState<boolean>(true)
@@ -17,6 +18,16 @@ export default function Login() {
             ...info,
             [name]: value
         })
+    }
+
+    const onLogin = ()=> {
+        api("POST", "user/login", {...info})
+        .then(res => {
+            if(res){
+                localStorage.setItem("jwt", res.data)
+            }
+        })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -58,7 +69,7 @@ export default function Login() {
                 >
                     {login ? "or Sign up" : "or Log in"}
                 </span>
-                <button>{login ? "Log in" : "Sign up"}</button>
+                <button onClick={onLogin}>{login ? "Log in" : "Sign up"}</button>
             </div>
         </div>
     )
