@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function UserInfo() {
     return (
-        <div>
-            
+        <div className="wrapper">
+            <p>123123</p>
         </div>
     )
 }

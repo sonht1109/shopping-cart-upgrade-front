@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import './style.css'
 import { api } from '../../common/axios';
+import * as constants from '../../common/constants'
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Login() {
     const [login, setLogin] = useState<boolean>(true)
@@ -9,6 +12,9 @@ export default function Login() {
         password: '',
         repassword: ''
     })
+
+    const history = useHistory()
+    // const isLogin = useSelector((state: any) => state.)
 
     const onChange=(e:any)=>{
         var target = e.target
@@ -21,10 +27,13 @@ export default function Login() {
     }
 
     const onLogin = ()=> {
-        api("POST", "user/login", {...info})
+        api("POST", constants.LOGIN_URL, {...info})
         .then(res => {
             if(res){
-                localStorage.setItem("jwt", res.data)
+                const {user, token} = res.data
+                localStorage.setItem("jwt", token);
+                
+                history.replace(constants.GET_INFO_URl)
             }
         })
         .catch(err => console.log(err))
