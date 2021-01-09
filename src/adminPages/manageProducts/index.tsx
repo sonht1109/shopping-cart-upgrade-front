@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, CustomInput, Form, FormGroup, Input, Label } from 'reactstrap'
-import { apiTokenInterceptor } from '../../common/axios'
+import { Button, CustomInput, FormGroup, Input, Label } from 'reactstrap'
+import { apiTokenFormDataInterceptor } from '../../common/axios'
 import './style.css'
 import * as constants from '../../common/constants'
 
@@ -14,7 +14,7 @@ interface Product {
         freesize: number
     },
     price: number,
-    img: string
+    img: any
 }
 
 export default function ManageProducts() {
@@ -24,21 +24,24 @@ export default function ManageProducts() {
 
     const [product, setProduct] = useState<Product>({
         name: "",
-        category: cateState[0]._id,
+        category: cateState[0]?._id || "",
         inStock: {
             M: 0,
             L: 0,
             freesize: 0
         },
         price: 0,
-        img: ""
+        img: {}
     })
 
     const onChange = (e: any) => {
         let target = e.target
         let value = target.value
         let name = target.name
-        if (target.name !== "M" && target.name !== "L" && target.name !== "freesize") {
+        if(name === "img"){
+            setProduct({...product, img: target.files[0]})
+        }
+        else if (!["M", "L", "freesize"].includes(name)) {
             setProduct({ ...product, [name]: value })
         }
         else {
@@ -55,16 +58,32 @@ export default function ManageProducts() {
         return true
     }
 
+    const checkImg = ():boolean=> {
+        if(product.img.type === "image/jpeg" || product.img.type === "image/png"){
+            return true
+        }
+        return false
+    }
+
+    const genFormData = ()=> {
+        const form = new FormData()
+        Object.entries(product).forEach(([key, value])=> {
+            form.append(key, value)
+        })
+        return form
+    }
+
     const onSubmit = (e: any) => {
         e.preventDefault();
         let token = localStorage.getItem("jwt") || ""
-        if (checkProduct()) {
-            apiTokenInterceptor("POST", constants.ADD_PRODUCT_URL, product, token)
+        if(!checkImg()) alert("Wrong image format !")
+        else if (checkProduct()) {
+            apiTokenFormDataInterceptor("POST", constants.ADD_PRODUCT_URL, genFormData(), token)
                 .then(() => alert("Product uploaded !"))
-                .catch((err) => console.log(product))
+                .catch((err) => console.log(err))
         }
         else {
-            alert("Please fill fields !")
+            alert("Please fill all fields !")
         }
     }
 
@@ -74,7 +93,7 @@ export default function ManageProducts() {
 
     return (
         <div className="wrapper manage-products">
-            <Form encType="multipart/form-data" method="POST" >
+            <form encType="multipart/form-data" method="POST" action="/product/add">
 
                 <FormGroup>
                     <Label for="name">Product name</Label>
@@ -85,7 +104,8 @@ export default function ManageProducts() {
                 <FormGroup>
                     <Label for="category">Category</Label>
                     <CustomInput type="select" name="category" id="category"
-                        onChange={onChange} value={product.category} >
+                        onChange={onChange} value={product.category}>
+                            {/* <option disabled>Categories</option> */}
                         {cateState.map((item: any) => {
                             return <option key={item._id} value={item._id}>
                                 {item.name}
@@ -125,15 +145,23 @@ export default function ManageProducts() {
                             onChange={onChange} value={product.inStock.freesize} />
                     </FormGroup>
                 }
+
+                <FormGroup>
+                    <Label for="price">Price</Label>
+                    <Input type="number" id="price" name="price" placeholder="Price"
+                            onChange={onChange} value={product.price} />
+                </FormGroup>
+
                 <FormGroup>
                     <Label for="img">Image</Label>
                     <Input type="file" name="img" onChange={onChange} />
                 </FormGroup>
+
                 <Button onClick={onSubmit} style={{ backgroundColor: "rgb(41, 107, 194)" }}>
                     Submit
                 </Button>
 
-            </Form>
+            </form>
         </div>
     )
 }

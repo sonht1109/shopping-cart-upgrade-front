@@ -40,6 +40,20 @@ export const apiTokenInterceptor = async(method:any, url:string, data:any, token
         data,
         headers: {
             Authorization: token,
+            // "Content-type": "multipart/form-data",
+        }
+    })
+}
+// ====> form data
+export const apiTokenFormDataInterceptor = async(method:any, url:string, data:any, token: string) => {
+    // let jwt = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
+    return interceptorInstance({
+        method: method,
+        url: `${constants.API_ENDPOINT}/${url}`,
+        data,
+        headers: {
+            Authorization: token,
+            "Content-type": "multipart/form-data",
         }
     })
 }
@@ -73,7 +87,7 @@ export const apiToken = (method:any, url:string, data:any, token: string) => {
     url: `${constants.API_ENDPOINT}/${url}`,
     data: data,
     headers: {
-      Authorization: token,
+        Authorization: token,
     },
   });
 };
