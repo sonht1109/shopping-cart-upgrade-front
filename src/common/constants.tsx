@@ -5,6 +5,7 @@ export const GET_INFO_URL = "user/me"
 export const SIGNUP_URL = "user/signup"
 export const GET_CATES_URL = "categories"
 export const GET_PRODUCTS_URL = "products"
+export const ADD_PRODUCT_URL = "product/add"
 
 //actions
 export const GET_USER = "GET_USER"

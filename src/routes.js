@@ -37,7 +37,7 @@ const routes = [
         main: ()=> <ManageProducts />
     },
     {
-        path: "/manage-users",
+        path: "/admin/users",
         private: false,
         exact: true,
         main: ()=> <ManageUsers />
@@ -48,6 +48,12 @@ const routes = [
         exact: true,
         main: ()=> <UserInfo />
     },
+    {
+        path: "/admin/products",
+        private: false,
+        exact: true,
+        main: ()=> <ManageProducts />
+    }
 ]
 
 export default routes

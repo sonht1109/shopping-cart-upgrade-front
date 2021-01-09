@@ -32,7 +32,7 @@ interceptorInstance.interceptors.response.use(
 )
 
 // ====> INTERCEPTORS with token
-export const apiTokenInterceptor = async(method:any, url:String, data:any, token: String) => {
+export const apiTokenInterceptor = async(method:any, url:string, data:any, token: string) => {
     // let jwt = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
     return interceptorInstance({
         method: method,
@@ -44,7 +44,7 @@ export const apiTokenInterceptor = async(method:any, url:String, data:any, token
     })
 }
 // ====> INTERCEPTOR without token
-export const apiInterceptor = async(method:any, url:String, data:any) => {
+export const apiInterceptor = async(method:any, url:string, data:any) => {
     return interceptorInstance({
         method : method,
         url: `${constants.API_ENDPOINT}/${url}`,
@@ -56,7 +56,7 @@ export const apiInterceptor = async(method:any, url:String, data:any) => {
 const instance = axios.create();
 
 // ====> without token
-export const api = (method:any, url:String, data:any) => {
+export const api = (method:any, url:string, data:any) => {
   return instance({
     method: method,
     url: `${constants.API_ENDPOINT}/${url}`,
@@ -66,7 +66,7 @@ export const api = (method:any, url:String, data:any) => {
 };
 
 // ====> with token
-export const apiToken = (method:any, url:String, data:any, token: String) => {
+export const apiToken = (method:any, url:string, data:any, token: string) => {
   let jwt = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
   return instance({
     method: method,

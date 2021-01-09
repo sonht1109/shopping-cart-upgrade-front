@@ -1,6 +1,6 @@
 .login{
     width: 100vw;
-    height: calc(100vh - 120px - 100px);
+    min-height: calc(100vh - 120px - 100px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,7 +33,7 @@ input{
 
 @media(max-width: 680px){
     .login{
-        height: calc(100vh - 120px - 76px);;
+        min-height: calc(100vh - 120px - 76px);
     }
     .user-info{
         min-height: calc(100vh - 120px - 76px);
