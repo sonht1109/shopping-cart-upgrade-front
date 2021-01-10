@@ -32,7 +32,7 @@ export default function SidebarContent(props: any) {
 
     const menus = [
         { name: "Home", to: "/" },
-        { name: "Collections", to: "/products" },
+        { name: "Collections", to: "/products/all" },
         { name: "About us", to: "/about" },
         { name: userState.email ? userState.email : "Log in", to: userState.email ? "/me" : "/login" },
         { name: "Manage users", to: "/admin/users"},
@@ -85,7 +85,7 @@ export default function SidebarContent(props: any) {
                         {renderBorder()}
                         <UncontrolledCollapse toggler="#toggle" className="collapse-menu">
                             <Link
-                            to="/products"
+                            to="/products/all"
                             className="sidebar-item"
                             style={{ textDecoration: 'none' }}
                             onClick={onCloseSidebar}

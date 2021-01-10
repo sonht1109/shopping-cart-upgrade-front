@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function HomeMenu() {
 
     const menus = [
-        {name: "Store", to: "/products"},
+        {name: "Store", to: "/products/all"},
         {name: "About us", to: "/about"},
     ]
     

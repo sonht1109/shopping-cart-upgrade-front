@@ -1,0 +1,46 @@
+button.size{
+    background-color: white;
+    color: rgb(41, 107, 194);
+}
+.item-detail{
+    margin: 20px 0;
+}
+.item-detail img{
+    width: 100%;
+    height: auto;
+}
+.item-detail .size-choices{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: rgb(41, 107, 194);
+}
+.item-detail .size-choices .size{
+    padding: 5px 10px;
+    margin: 20px 20px;
+    border: 1px solid rgb(41, 107, 194);
+    font-size: 14px;
+}
+.item-detail .item-content{
+    margin: 20px 0;
+}
+.size.size-active, .size:not(.size-out):hover{
+    background-color: rgb(41, 107, 194);
+    color: white;
+}
+.size.size-out{
+    background-color: rgb(233, 232, 232);
+    border-color: rgb(233, 232, 232)!important;
+    color: black;
+    text-decoration: line-through;
+}
+
+@media(max-width: 680px){
+    .item-detail .size-choices .size{
+        font-size: 12px;
+        margin: 10px 10px;
+    }
+    .item-content h3{
+        font-size: 18px;
+    }
+}

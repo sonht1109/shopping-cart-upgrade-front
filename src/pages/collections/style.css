@@ -5,6 +5,11 @@
 .products .col-12.col-sm-6{
     padding: 20px;
 }
+.products .title{
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px;
+}
 .product-item {
     display: flex;
     flex-direction: column;
@@ -23,4 +28,9 @@
     font-size: 14px;
     display: inline-block;
     max-width: 40%;
+}
+@media(max-width: 680px){
+    .products .title{
+        font-size: 18px;
+    }
 }

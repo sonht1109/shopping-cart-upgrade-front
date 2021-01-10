@@ -7,14 +7,13 @@ interface Action {
 
 var initState:any[] = []
 
-//not use
-var collectionReducer = (state = initState, action:Action) => {
+var cartReducer = (state = initState, action:Action) => {
     switch(action.type){
-        case constants.GET_PRODUCTS:
-            return [...action.payload]
+        case constants.UPDATE_CART:
+            return {...action.payload}
         default:
             return [...state]
     }
 }
 
-export default collectionReducer
+export default cartReducer

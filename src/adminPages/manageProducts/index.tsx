@@ -109,13 +109,11 @@ export default function ManageProducts() {
             <form encType="multipart/form-data" method="POST" action="/product/add">
 
                 <FormGroup>
-                    <Label for="name">Product name</Label>
-                    <Input type='text' placeholder="Name" name="name"
+                    <Input type='text' placeholder="Product Name" name="name"
                         onChange={onChange} value={product.name} />
                 </FormGroup>
 
                 <FormGroup>
-                    <Label for="category">Category</Label>
                     <CustomInput type="select" name="category" id="category"
                         onChange={onChange} value={product.category}>
                         {cateState.map((item: any) => {
@@ -127,7 +125,6 @@ export default function ManageProducts() {
                 </FormGroup>
 
                 <FormGroup>
-                    <Label for="instock">In stock</Label>
                     <CustomInput type="radio" id="freesize" name="size" label="Freesize"
                         onChange={onSetSizeType}
                         value="0"
@@ -141,10 +138,10 @@ export default function ManageProducts() {
                 {
                     sizeType === "1" &&
                     <FormGroup>
-                        <Label for="M">Size M</Label>
+                        <Label for="M">Size M in stock</Label>
                         <Input type="number" id="M" name="M" placeholder="M"
                             onChange={onChange} value={product.inStock.M} min={0}/>
-                        <Label for="L">Size L</Label>
+                        <Label for="L">Size L in stock</Label>
                         <Input type="number" id="L" name="L" placeholder="L"
                             onChange={onChange} value={product.inStock.L}
                             min={0}/>
@@ -154,6 +151,7 @@ export default function ManageProducts() {
                 {
                     sizeType === "0" &&
                     <FormGroup>
+                        <Label for="freesize">Freesize in stock</Label>
                         <Input type="number" id="freesize" name="freesize" placeholder="Freesize"
                             onChange={onChange} value={product.inStock.freesize}
                             min={0}/>
