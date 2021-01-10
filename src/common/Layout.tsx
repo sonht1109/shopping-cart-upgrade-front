@@ -34,11 +34,9 @@ export default function Layout() {
             styles={{ sidebar: { background: "white", padding: "10px", paddingTop: "30px" } }}
         >
             <Menu onOpenSidebar={handleOpenSidebar} />
-            <div style={{ marginTop: 120 }}>
-                <Switch>
-                    {mapRoutes}
-                </Switch>
-            </div>
+            <Switch>
+                {mapRoutes}
+            </Switch>
             <Footer />
         </Sidebar>
     )

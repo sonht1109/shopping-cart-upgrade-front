@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Button, CustomInput, FormGroup, Input, Label } from 'reactstrap'
 import { apiTokenFormDataInterceptor } from '../../common/axios'
@@ -24,7 +24,7 @@ export default function ManageProducts() {
 
     const [product, setProduct] = useState<Product>({
         name: "",
-        category: cateState[0]?._id || "",
+        category: "",
         inStock: {
             M: 0,
             L: 0,
@@ -34,40 +34,48 @@ export default function ManageProducts() {
         img: {}
     })
 
+    useEffect(() => {
+        if (cateState.length > 0) {
+            setProduct({ ...product, category: cateState[0]._id })
+        }
+    }, [cateState])
+
     const onChange = (e: any) => {
         let target = e.target
         let value = target.value
         let name = target.name
-        if(name === "img"){
-            setProduct({...product, img: target.files[0]})
+        if(value === "" && target.type === "number") value = 0
+        if (name === "img") {
+            setProduct({ ...product, img: target.files[0] })
         }
         else if (!["M", "L", "freesize"].includes(name)) {
             setProduct({ ...product, [name]: value })
         }
         else {
-            let inStock = { ...product.inStock, [name]: value }
+            let inStock = { ...product.inStock, [name]: parseInt(value) }
             setProduct({ ...product, inStock })
         }
     }
 
     const checkProduct = (): boolean => {
-        const { name, img, inStock, price } = product
-        if (name === "" || img === "" || inStock.L < 0 || inStock.M < 0 || inStock.freesize < 0 || price < 0) {
+        const { name, img } = product
+        if (name === "" || img === "") {
             return false
         }
         return true
     }
 
-    const checkImg = ():boolean=> {
-        if(product.img.type === "image/jpeg" || product.img.type === "image/png"){
+    const checkImg = (): boolean => {
+        if (product.img.type === "image/jpeg" || product.img.type === "image/png") {
             return true
         }
         return false
     }
 
-    const genFormData = ()=> {
+    const genFormData = () => {
         const form = new FormData()
-        Object.entries(product).forEach(([key, value])=> {
+        Object.entries(product).forEach(([key, value]) => {
+            value = key === "inStock" ? JSON.stringify(value) : value
             form.append(key, value)
         })
         return form
@@ -76,10 +84,13 @@ export default function ManageProducts() {
     const onSubmit = (e: any) => {
         e.preventDefault();
         let token = localStorage.getItem("jwt") || ""
-        if(!checkImg()) alert("Wrong image format !")
+        if (!checkImg()) alert("Wrong image format !")
         else if (checkProduct()) {
             apiTokenFormDataInterceptor("POST", constants.ADD_PRODUCT_URL, genFormData(), token)
-                .then(() => alert("Product uploaded !"))
+
+                .then(() => {
+                    alert("Product uploaded !")
+                })
                 .catch((err) => console.log(err))
         }
         else {
@@ -88,6 +99,8 @@ export default function ManageProducts() {
     }
 
     const onSetSizeType = (e: any) => {
+        let inStock = { ...product.inStock, M: 0, L: 0, freesize: 0 }
+        setProduct({ ...product, inStock })
         setSizeType(e.target.value)
     }
 
@@ -105,7 +118,6 @@ export default function ManageProducts() {
                     <Label for="category">Category</Label>
                     <CustomInput type="select" name="category" id="category"
                         onChange={onChange} value={product.category}>
-                            {/* <option disabled>Categories</option> */}
                         {cateState.map((item: any) => {
                             return <option key={item._id} value={item._id}>
                                 {item.name}
@@ -131,10 +143,11 @@ export default function ManageProducts() {
                     <FormGroup>
                         <Label for="M">Size M</Label>
                         <Input type="number" id="M" name="M" placeholder="M"
-                            onChange={onChange} value={product.inStock.M} />
+                            onChange={onChange} value={product.inStock.M} min={0}/>
                         <Label for="L">Size L</Label>
                         <Input type="number" id="L" name="L" placeholder="L"
-                            onChange={onChange} value={product.inStock.L} />
+                            onChange={onChange} value={product.inStock.L}
+                            min={0}/>
                     </FormGroup>
                 }
 
@@ -142,14 +155,15 @@ export default function ManageProducts() {
                     sizeType === "0" &&
                     <FormGroup>
                         <Input type="number" id="freesize" name="freesize" placeholder="Freesize"
-                            onChange={onChange} value={product.inStock.freesize} />
+                            onChange={onChange} value={product.inStock.freesize}
+                            min={0}/>
                     </FormGroup>
                 }
 
                 <FormGroup>
                     <Label for="price">Price</Label>
                     <Input type="number" id="price" name="price" placeholder="Price"
-                            onChange={onChange} value={product.price} />
+                        onChange={onChange} value={product.price} min={0}/>
                 </FormGroup>
 
                 <FormGroup>

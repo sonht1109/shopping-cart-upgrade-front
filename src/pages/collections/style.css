@@ -1,0 +1,26 @@
+.products .product-item img{
+    width: 100%;
+    height: auto;
+}
+.products .col-12.col-sm-6{
+    padding: 20px;
+}
+.product-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    cursor: pointer;
+    border: 1px solid rgb(150, 150, 150)
+}
+.product-item .item-detail{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 10px;
+    justify-self: flex-end;
+}
+.product-item .item-detail span{
+    font-size: 14px;
+    display: inline-block;
+    max-width: 40%;
+}
