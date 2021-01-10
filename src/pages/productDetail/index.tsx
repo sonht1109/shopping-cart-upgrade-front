@@ -1,11 +1,12 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import {IoArrowBackOutline} from 'react-icons/io5'
+import { Col, Container, Input, Row } from 'reactstrap';
 import { useEffect, useState } from 'react';
 import { api } from '../../common/axios';
 import * as constants from '../../common/constants'
+import errorImage from '../../assets/images/404.jpg'
 import './style.css'
-import { Col, Container, Input, Label, Row } from 'reactstrap';
 
 interface Product{
     name: string,
@@ -67,7 +68,7 @@ export default function ProductDetail() {
                 <Row>
                     <Col xs="12" md="5" sm="6">
                         <img
-                        src={`${constants.API_ENDPOINT}/${product.img}`}
+                        src={product.img !== "" ? `${constants.API_ENDPOINT}/${product.img}` : errorImage}
                         alt="" />
                     </Col>
                     <Col xs="12" md={{size: 6, offset: 1}} sm="6">
@@ -83,7 +84,7 @@ export default function ProductDetail() {
                             style={{width: "100%", marginTop: "20px", padding: "10px 0"}}
                             onClick={onAddToCart}
                             >
-                                `Add to cart {size !== "" && `(${size})`}`
+                                Add to cart {size !== "" && `(${size})`}
                             </button>
                         </div>
                     </Col>
