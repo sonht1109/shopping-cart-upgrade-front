@@ -7,8 +7,11 @@ import { api } from '../../common/axios';
 import * as constants from '../../common/constants'
 import errorImage from '../../assets/images/404.jpg'
 import './style.css'
+import { useDispatch } from 'react-redux';
+import * as actions from '../../common/actions'
 
 interface Product{
+    _id: string,
     name: string,
     category: string,
     img: string,
@@ -20,8 +23,10 @@ export default function ProductDetail() {
     
     const history = useHistory()
     const params:any = useParams()
+    const dispatch = useDispatch()
 
     const [product, setProduct] = useState<Product>({
+        _id: "",
         name: "",
         category: "",
         img: "",
@@ -54,6 +59,11 @@ export default function ProductDetail() {
     const onAddToCart = ()=> {
         if(size === "") alert("You have not picked a size !")
         else if(quantity < 1) alert("Quantity is invalid !")
+        else{
+            dispatch(actions.updateCart(product, {
+                size, quantity
+            }))
+        }
     }
 
     const onChange = (e:any)=>{

@@ -5,6 +5,7 @@ import ManageProducts from './adminPages/manageProducts';
 import UserInfo from './pages/login/UserInfo';
 import ManageUsers from './adminPages/manageUsers/index';
 import ProductDetail from './pages/productDetail/index';
+import Cart from './pages/cart/index';
 
 const routes = [
     {
@@ -55,6 +56,12 @@ const routes = [
         exact: true,
         main: ()=> <ProductDetail />
     },
+    {
+        path: "/cart",
+        private: false,
+        exact: true,
+        main: ()=> <Cart />
+    }
 ]
 
 export default routes

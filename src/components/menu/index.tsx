@@ -1,6 +1,7 @@
 import React from 'react'
 import { IoMenuOutline } from "react-icons/io5";
 import logo from '../../assets/images/logo.png'
+import MenuCart from './MenuCart';
 import './style.css'
 
 export default function Menu(props:any) {
@@ -21,7 +22,7 @@ export default function Menu(props:any) {
             style={{marginRight: "auto"}}
             alt="logo"
             />
-            <div className="cart">Cart</div>
+            <MenuCart />
         </div>
     )
 }

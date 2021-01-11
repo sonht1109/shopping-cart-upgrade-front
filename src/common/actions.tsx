@@ -20,9 +20,9 @@ export const getCategories = (payload: any[]) => ({
     payload
 })
 
-export const updateCart = (product: any, quantity: any) => ({
+export const updateCart = (product: any, detail: any) => ({
     type: constants.UPDATE_CART,
     payload: {
-        product, quantity
+        product, detail
     }
 })
