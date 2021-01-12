@@ -61,41 +61,46 @@ export default function SidebarContent(props: any) {
         return(
             menus.map((item: any, index: number) => {
                 if (item.name !== "Collections") {
+                    if(item.to.indexOf("admin") === -1 || (item.to.indexOf("admin") !== -1 && userState.role === "admin")){
+                        return (
+                            <div key={index}>
+                                {index !== 0 &&
+                                    renderBorder()}
+                                <Link
+                                    to={item.to}
+                                    className="sidebar-item"
+                                    style={{ textDecoration: 'none' }}
+                                    onClick={onCloseSidebar}
+                                >
+                                    {item.name}
+                                </Link>
+                            </div>
+                        )
+                    }
+                }
+                else if(item.name === "Collections"){
                     return (
                         <div key={index}>
-                            <Link
-                                to={item.to}
+                            {renderBorder()}    
+                            <div id="toggle" className="sidebar-item">
+                                {item.name}
+                                <IoChevronDownOutline style={{ marginLeft: "auto" }} />
+                            </div>
+                            
+                            <UncontrolledCollapse toggler="#toggle" className="collapse-menu">
+                                <Link
+                                to="/products/all"
                                 className="sidebar-item"
                                 style={{ textDecoration: 'none' }}
                                 onClick={onCloseSidebar}
-                            >
-                                {item.name}
-                            </Link>
-                            {index !== menus.length - 1 &&
-                                renderBorder()}
+                                >
+                                    All
+                                </Link>
+                                {renderDropdown}
+                            </UncontrolledCollapse>
                         </div>
                     )
                 }
-                return (
-                    <div key={index}>
-                        <div id="toggle" className="sidebar-item">
-                            {item.name}
-                            <IoChevronDownOutline style={{ marginLeft: "auto" }} />
-                        </div>
-                        {renderBorder()}
-                        <UncontrolledCollapse toggler="#toggle" className="collapse-menu">
-                            <Link
-                            to="/products/all"
-                            className="sidebar-item"
-                            style={{ textDecoration: 'none' }}
-                            onClick={onCloseSidebar}
-                            >
-                                All
-                            </Link>
-                            {renderDropdown}
-                        </UncontrolledCollapse>
-                    </div>
-                )
             })
         )
     }, [userState, onCloseSidebar])

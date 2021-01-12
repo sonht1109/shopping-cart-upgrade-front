@@ -5,6 +5,7 @@ import Sidebar from 'react-sidebar';
 import SidebarContent from '../components/sidebarContent/index';
 import routes from '../routes';
 import { Route, Switch } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 
 export default function Layout() {
 
@@ -15,11 +16,16 @@ export default function Layout() {
     }
 
     const mapRoutes = routes.map((item, index) => {
-        return (
-            <Route key={index} exact={item.exact} path={item.path}>
-                {item.main}
-            </Route>
-        )
+        if(item.private){
+            return <ProtectedRoute item={item} index={index} />
+        }
+        else{
+            return (
+                <Route key={index} exact={item.exact} path={item.path}>
+                    {item.main}
+                </Route>
+            )
+        }
     })
 
     const onCloseSidebar = ()=> {

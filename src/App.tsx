@@ -10,6 +10,7 @@ import routes from './routes';
 import * as constants from './common/constants'
 import * as actions from './common/actions'
 import NotFound from './pages/notFound/index';
+import About from './pages/about';
 
 function App() {
   
@@ -44,6 +45,9 @@ function App() {
         </Route>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route exact path="/about">
+          <About />
         </Route>
         <Route path="*">
           <NotFound></NotFound>

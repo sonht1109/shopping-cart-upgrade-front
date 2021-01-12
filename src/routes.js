@@ -21,12 +21,6 @@ const routes = [
         main: ()=> <Collections />
     },
     {
-        path: "/about",
-        private: false,
-        exact: true,
-        main: ()=> <About />
-    },
-    {
         path: "/manage-products",
         private: false,
         exact: true,
@@ -46,13 +40,13 @@ const routes = [
     },
     {
         path: "/admin/products",
-        private: false,
+        private: true,
         exact: true,
         main: ()=> <ManageProducts />
     },
     {
         path: "/products/product/:id",
-        private: false,
+        private: true,
         exact: true,
         main: ()=> <ProductDetail />
     },
