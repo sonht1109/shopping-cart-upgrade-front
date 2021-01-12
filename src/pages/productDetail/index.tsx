@@ -7,7 +7,7 @@ import { api } from '../../common/axios';
 import * as constants from '../../common/constants'
 import errorImage from '../../assets/images/404.jpg'
 import './style.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../common/actions'
 
 interface Product{
@@ -24,6 +24,7 @@ export default function ProductDetail() {
     const history = useHistory()
     const params:any = useParams()
     const dispatch = useDispatch()
+    const cartState = useSelector((state: any)=> state.cartReducer)
 
     const [product, setProduct] = useState<Product>({
         _id: "",
@@ -36,6 +37,19 @@ export default function ProductDetail() {
 
     const [size, setSize] = useState("")
     const [quantity, setQuantity] = useState(1)
+
+    const checkProduct = ()=>{
+        let isExist = false
+        cartState.forEach((item: any)=> {
+            if(product._id === item.product._id){
+                if(item.detail.size === size && item.detail.quantity === quantity){
+                    isExist = true
+                }
+            }
+        })
+        return isExist
+    }
+    
 
     useEffect(()=>{
         api("GET", `${constants.GET_PRODUCT_URL}/${params.id}`, null)
@@ -90,11 +104,8 @@ export default function ProductDetail() {
                             </div>
                             {/* <Label for="">Quantity</Label> */}
                             <Input type="number" min={1} placeholder="Quantity" name="quantity" value={quantity} onChange={onChange} />
-                            <button
-                            style={{width: "100%", marginTop: "20px", padding: "10px 0"}}
-                            onClick={onAddToCart}
-                            >
-                                Add to cart {size !== "" && `(${size})`}
+                            <button className={checkProduct() ? "active" : "inactive" } onClick={onAddToCart}>
+                                {checkProduct() ? "Remove from cart" : "Add to cart"}
                             </button>
                         </div>
                     </Col>

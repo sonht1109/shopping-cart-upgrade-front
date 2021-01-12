@@ -26,3 +26,7 @@ export const updateCart = (product: any, detail: any) => ({
         product, detail
     }
 })
+
+export const purchase = () => ({
+    type: constants.PURCHASE
+})

@@ -12,13 +12,16 @@
 }
 
 .menu-cart{
-    font-weight: 600;
     font-size: 16px;
     cursor: pointer;
+    font-weight: 500;
 }
 
 @media(max-width: 680px){
     .cart{
-        font-size: 16;
+        font-size: 16px;
+    }
+    .menu-cart{
+        font-size: 14px;
     }
 }
