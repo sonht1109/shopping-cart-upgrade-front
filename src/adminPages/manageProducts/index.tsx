@@ -19,6 +19,8 @@ interface Product {
 
 export default function ManageProducts() {
 
+    console.log('admin');
+
     const [sizeType, setSizeType] = useState("")
     const cateState = useSelector((state: any) => state.categoryReducer)
 

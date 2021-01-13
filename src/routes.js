@@ -1,6 +1,5 @@
 import Collections from './pages/collections';
 import Login from './pages/login';
-import About from './pages/about/index';
 import ManageProducts from './adminPages/manageProducts';
 import UserInfo from './pages/login/UserInfo';
 import ManageUsers from './adminPages/manageUsers/index';
@@ -21,16 +20,16 @@ const routes = [
         main: ()=> <Collections />
     },
     {
-        path: "/manage-products",
-        private: false,
-        exact: true,
-        main: ()=> <ManageProducts />
-    },
-    {
         path: "/admin/users",
         private: false,
         exact: true,
         main: ()=> <ManageUsers />
+    },
+    {
+        path: "/admin/products",
+        private: false,
+        exact: true,
+        main: ()=> <ManageProducts />
     },
     {
         path: "/me",
@@ -39,14 +38,8 @@ const routes = [
         main: ()=> <UserInfo />
     },
     {
-        path: "/admin/products",
-        private: true,
-        exact: true,
-        main: ()=> <ManageProducts />
-    },
-    {
         path: "/products/product/:id",
-        private: true,
+        private: false,
         exact: true,
         main: ()=> <ProductDetail />
     },

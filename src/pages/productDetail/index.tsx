@@ -20,6 +20,9 @@ interface Product{
 }
 
 export default function ProductDetail() {
+
+    console.log('detail');
+    
     
     const history = useHistory()
     const params:any = useParams()

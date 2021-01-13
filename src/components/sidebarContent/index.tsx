@@ -62,6 +62,7 @@ export default function SidebarContent(props: any) {
             menus.map((item: any, index: number) => {
                 if (item.name !== "Collections") {
                     if(item.to.indexOf("admin") === -1 || (item.to.indexOf("admin") !== -1 && userState.role === "admin")){
+                        console.log('13223');
                         return (
                             <div key={index}>
                                 {index !== 0 &&

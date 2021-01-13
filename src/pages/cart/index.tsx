@@ -48,7 +48,7 @@ export default function Cart() {
     const onCheckout = ()=> {
         let jwt = localStorage.getItem('jwt')
         if(jwt){
-            dispatch(actions.purchase())
+            dispatch(actions.purchaseSuccess())
             alert("Thanks for your purchase !")
         }
         else{

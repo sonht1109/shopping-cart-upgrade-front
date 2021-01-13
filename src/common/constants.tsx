@@ -7,6 +7,7 @@ export const GET_CATES_URL = "categories"
 export const GET_PRODUCTS_URL = "products"
 export const ADD_PRODUCT_URL = "product/add"
 export const GET_PRODUCT_URL = "product"
+export const PURCHASE_URL = "purchase"
 
 //actions
 export const GET_USER = "GET_USER"
