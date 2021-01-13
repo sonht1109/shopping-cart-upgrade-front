@@ -1,4 +1,4 @@
-import { apiTokenInterceptor } from './axios'
+import { apiToken, apiTokenInterceptor } from './axios'
 import * as constants from './constants'
 
 export const getUser = (payload: any)=> ({
@@ -28,10 +28,10 @@ export const updateCart = (product: any, detail: any) => ({
     }
 })
 
-export const purchaseRequest = (products: any[])=> {
+export const purchaseRequest = (products: any[], dispatch: any)=> {
     let jwt = localStorage.getItem("jwt") || ""
-    return (dispatch: any)=> {
-        apiTokenInterceptor("POST", constants.PURCHASE_URL, products, jwt)
+    return ()=> {
+        apiToken("POST", constants.PURCHASE_URL, products, jwt)
         .then(() => dispatch(purchaseSuccess()))
         .catch(err => console.log(err))
     }
