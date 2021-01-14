@@ -51,6 +51,7 @@ export default function Cart() {
         let products = cart.map((item: any) => {
             return ({
                 productId: item.product._id,
+                productName: item.product.name,
                 size: item.detail.size,
                 quantity: item.detail.quantity
             })

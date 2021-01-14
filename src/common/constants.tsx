@@ -8,6 +8,7 @@ export const GET_PRODUCTS_URL = "products"
 export const ADD_PRODUCT_URL = "product/add"
 export const GET_PRODUCT_URL = "product"
 export const PURCHASE_URL = "purchase"
+export const PURCHASE_HISTORY_URL = "purchase-history"
 
 //actions
 export const GET_USER = "GET_USER"
