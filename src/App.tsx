@@ -17,24 +17,22 @@ function App() {
   const routeList = useMemo(() => (routes.map(item => item.path)), [])
   const appState = useSelector((state: any) => state.appReducer)
   const dispatch = useDispatch()
-
-  //get categories
-  useEffect(()=> {
-    api("GET", constants.GET_CATES_URL, null)
-    .then(res => dispatch(actions.getCategories(res.data)))
-    .catch(err => console.log(err))
-  }, [])
-
-  //get user info
+  
+  //get categories and get user info
   useEffect(() => {
     let jwt = localStorage.getItem("jwt")
-    if(jwt){
-      apiToken("GET", constants.GET_INFO_URL, null, jwt)
-      .then(res => {
-        dispatch(actions.getUser(res.data))
-      })
-      .catch(err => console.log(err))
-    }
+
+    api("GET", constants.GET_CATES_URL, null)
+    .then(res => dispatch(actions.getCategories(res.data)))
+    .then(() => {
+      if(jwt){
+        apiToken("GET", constants.GET_INFO_URL, null, jwt)
+        .then(res => dispatch(actions.getUser(res.data)))
+        .catch(err => console.log(err))
+      }
+    })
+    .catch(err => console.log(err))
+
   },[appState.isLogin])
 
   return (

@@ -14,7 +14,6 @@ export default function UserInfo() {
     const history = useHistory()
 
     const [purchaseHistory, setHistory] = useState([])
-    console.log(purchaseHistory);
 
     useEffect(() => {
         let jwt = localStorage.getItem("jwt") || ""
