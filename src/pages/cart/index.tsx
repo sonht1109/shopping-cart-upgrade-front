@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import * as constants from '../../common/constants'
 import * as actions from '../../common/actions'
-import { apiToken } from '../../common/axios';
 
 export default function Cart() {
 
@@ -47,23 +46,11 @@ export default function Cart() {
     }, 0)
 
     const onCheckout = () => {
-        let jwt = localStorage.getItem('jwt')
-        let products = cart.map((item: any) => {
-            return ({
-                productId: item.product._id,
-                productName: item.product.name,
-                size: item.detail.size,
-                quantity: item.detail.quantity
-            })
-        })
-        if (jwt) {
-            let jwt = localStorage.getItem("jwt") || ""
-            apiToken("POST", constants.PURCHASE_URL, products, jwt)
-                    .then(() => dispatch(actions.purchaseSuccess()))
-                    .catch(err => console.log(err))
-            alert("Thanks for your purchase !")
+        let jwt = localStorage.getItem("jwt")
+        if(jwt){
+            history.push('/cart/checkout')
         }
-        else {
+        else{
             history.replace('/login')
         }
     }

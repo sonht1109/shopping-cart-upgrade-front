@@ -1,4 +1,4 @@
-import { apiToken, apiTokenInterceptor } from './axios'
+import { apiToken } from './axios'
 import * as constants from './constants'
 
 export const getUser = (payload: any)=> ({

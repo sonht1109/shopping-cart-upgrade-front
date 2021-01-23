@@ -81,7 +81,6 @@ export const api = (method:any, url:string, data:any) => {
 
 // ====> with token
 export const apiToken = (method:any, url:string, data:any, token: string) => {
-  let jwt = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
   return instance({
     method: method,
     url: `${constants.API_ENDPOINT}/${url}`,
@@ -91,3 +90,15 @@ export const apiToken = (method:any, url:string, data:any, token: string) => {
     },
   });
 };
+
+//checkout api
+export const checkoutApi = (method: any, url: string, data: any) => {
+    return instance({
+        method: method,
+        url: url,
+        params: data,
+        headers: {
+            token: constants.token
+        },
+    });
+}

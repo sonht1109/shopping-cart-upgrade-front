@@ -1,0 +1,33 @@
+.checkout{
+    display: flex;
+    justify-content: space-between;
+}
+.checkout .address, .checkout .bill{
+    flex: 0.47;
+}
+
+.shipment, .method{
+    border: 1px solid #ced4da;
+}
+.method .input, .shipment{
+    padding: 20px;
+}
+.method > p{
+    background-color: #ced4da;
+    margin-bottom: 0;
+    padding: 20px;
+}
+.checkout .bill button{
+    margin-top: 20px;
+    padding: 10px 15px;
+}
+
+@media(max-width: 768px){
+    .checkout{
+        flex-direction: column;
+    }
+    .checkout .address, .checkout .bill{
+        flex: 1;
+        margin: 20px 0;
+    }
+}
