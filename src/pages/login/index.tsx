@@ -39,13 +39,16 @@ export default function Login() {
                         history.replace("/me")
                     }
                 })
-                .catch(err => {
+                .catch(() => {
                     alert("Wrong password")
                 })
         }
         else {
             if(!login && info.password !== info.repassword){
-                alert("Password not match")
+                alert("Password not match !")
+            }
+            else if(info.password.length < 4){
+                alert("Password must be at least 4 characters !")
             }
             else{
                 apiInterceptor("POST", constants.SIGNUP_URL, { ...info })
@@ -53,7 +56,7 @@ export default function Login() {
                     setLogin(true)
                     alert("Signed up !")
                 })
-                .catch(err => console.log(err))
+                .catch(err => alert("This email is used ! Try another !"))
             }
         }
     }
