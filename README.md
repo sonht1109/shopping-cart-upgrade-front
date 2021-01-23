@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-<img src="/src/assets/images/404.jpg" alt=""/>
+<img src="/src/assets/images/demo-shopping-cart.png" alt=""/>
 
 ## Available Scripts
 
